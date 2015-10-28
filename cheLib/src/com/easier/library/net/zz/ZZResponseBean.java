@@ -15,7 +15,7 @@ public class ZZResponseBean extends ResponseBean{
 	private static final long serialVersionUID = -8912296114666292095L;
 	private String resMsg = "";
 	private String resCode = "";
-	private String resBody="";
+	private String repBody="";
 
 	public int getError() {
 		return error;
@@ -40,11 +40,11 @@ public class ZZResponseBean extends ResponseBean{
 		this.resCode = resCode;
 	}
 
-	public String getResBody() {
-		return resBody;
+	public String getRepBody() {
+		return repBody;
 	}
 
-	public void setResBody(String resBody) {
-		this.resBody = resBody;
+	public void setRepBody(String repBody) {
+		this.repBody = repBody;
 	}
 }

@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.http.NameValuePair;
 import org.json.JSONObject;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request.Method;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
@@ -35,29 +36,45 @@ public abstract class NetworkHelper<T> {
 	 * @param tag
 	 * @return
 	 */
-	protected NetworkRequest getRequestForGet(String url, List<NameValuePair> params, final int requestCode,
+	protected NetworkStringRequest getRequestForGet(String url, List<NameValuePair> params, final int requestCode,
 			 final boolean isMore,final Object tag) {
-		NetworkRequest networkRequest;
+		NetworkStringRequest networkRequest;
 		if (params == null) {
-			networkRequest = new NetworkRequest(url, new Listener<JSONObject>() {
+//			networkRequest = new NetworkRequest(url, new Listener<JSONObject>() {
+//
+//				@Override
+//				public void onResponse(JSONObject response) {
+//					disposeResponse(response, requestCode, isMore,tag);
+//					LogUtil.d("Amuro", response.toString());
+//				}
+//			}, new ErrorListener() {
+//
+//				@Override
+//				public void onErrorResponse(VolleyError error) {
+//					disposeVolleyError(error, requestCode, isMore,tag);
+//				}
+//			});
+			networkRequest=new NetworkStringRequest(url, params, new Listener<String>() {
 
 				@Override
-				public void onResponse(JSONObject response) {
+				public void onResponse(String response) {
 					disposeResponse(response, requestCode, isMore,tag);
-					LogUtil.d("Amuro", response.toString());
+//					LogUtil.d("Amuro", response.toString());
+					
 				}
 			}, new ErrorListener() {
 
 				@Override
 				public void onErrorResponse(VolleyError error) {
 					disposeVolleyError(error, requestCode, isMore,tag);
+					
 				}
 			});
 		} else {
-			networkRequest = new NetworkRequest(url, params, new Listener<JSONObject>() {
+			networkRequest = new NetworkStringRequest(url, params, new Listener<String>() {
 
 				@Override
-				public void onResponse(JSONObject response) {
+				public void onResponse(String response) {
 					disposeResponse(response, requestCode,  isMore,tag);
 					LogUtil.d("Amuro", response.toString());
 				}
@@ -74,13 +91,13 @@ public abstract class NetworkHelper<T> {
 		return networkRequest;
 	}
 
-	protected NetworkRequest getRequestForPost(String url, Map<String, String> params, final int requestCode,
+	protected NetworkStringRequest getRequestForPost(String url, final Map<String, String> params, final int requestCode,
 			 final boolean isMore,final Object tag) {
-		NetworkRequest networkRequest = new NetworkRequest(Method.POST, url, params, new Listener<JSONObject>() {
+		NetworkStringRequest networkRequest = new NetworkStringRequest(url, new Listener<String>() {
 
 			@Override
-			public void onResponse(JSONObject response) {
-				disposeResponse(response, requestCode,  isMore,tag);
+			public void onResponse(String response) {
+				disposeResponse(response.toString(), requestCode,  isMore,tag);
 				LogUtil.d("Amuro", response.toString());
 			}
 		}, new ErrorListener() {
@@ -89,7 +106,13 @@ public abstract class NetworkHelper<T> {
 			public void onErrorResponse(VolleyError error) {
 				disposeVolleyError(error, requestCode, isMore,tag);
 			}
-		});
+		}){
+			@Override
+			protected Map<String, String> getParams() throws AuthFailureError {
+				// TODO Auto-generated method stub
+				return params;
+			}
+		};
 		return networkRequest;
 
 	}
@@ -152,7 +175,7 @@ public abstract class NetworkHelper<T> {
 
 	protected abstract void disposeVolleyError(VolleyError error, int requestCode, boolean isMore,Object tag);
 
-	protected abstract void disposeResponse(JSONObject response, int requestCode, boolean isMore, Object tag);
+	protected abstract void disposeResponse(String response, int requestCode, boolean isMore, Object tag);
 
 	private UIDataListener<T> uiDataListener;
 

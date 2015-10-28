@@ -31,7 +31,7 @@ public class ZZNetworkHelper extends NetworkHelper<ZZResponseBean>{
 	}
 
     @Override
-    protected void disposeResponse(JSONObject response,int requestCode,boolean isMore,Object tag){
+    protected void disposeResponse(String response,int requestCode,boolean isMore,Object tag){
         ZZResponseBean bean = null;
         ResponseError error=new ResponseError();
         if(response != null){
@@ -40,7 +40,7 @@ public class ZZNetworkHelper extends NetworkHelper<ZZResponseBean>{
 //                String msg = response.getString("msg");
 //                String data = response.getString("data");
 //                bean = new ResponseBean();
-            	bean=JsonUtils.resultData(response.toString(),ZZResponseBean.class );
+            	bean=JsonUtils.resultData(response,ZZResponseBean.class );
             	bean.setTag(tag);
             	bean.setMore(isMore);
                 if("0".equals(bean.getResCode())){

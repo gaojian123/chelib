@@ -31,7 +31,7 @@ public class XYNetworkHelper extends NetworkHelper<XYResponseBean>{
 	}
 
     @Override
-    protected void disposeResponse(JSONObject response,int requestCode,boolean isMore,Object tag){
+    protected void disposeResponse(String response,int requestCode,boolean isMore,Object tag){
         XYResponseBean bean = null;
         ResponseError error=new ResponseError();
         if(response != null){
@@ -40,7 +40,7 @@ public class XYNetworkHelper extends NetworkHelper<XYResponseBean>{
 //                String msg = response.getString("msg");
 //                String data = response.getString("data");
 //                bean = new ResponseBean();
-            	bean=JsonUtils.resultData(response.toString(),XYResponseBean.class );
+            	bean=JsonUtils.resultData(response,XYResponseBean.class );
             	bean.setMore(isMore);
             	bean.setTag(tag);
                 if("200".equals(bean.getCode())){
