@@ -17,8 +17,6 @@ import java.util.List;
 import java.util.regex.Pattern;
 import java.util.zip.Inflater;
 
-import com.easier.library.util.LogUtil;
-
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.ActivityManager.RunningTaskInfo;
@@ -31,6 +29,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.graphics.drawable.Drawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Environment;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
@@ -759,6 +759,24 @@ public class PublicMethod {
 	public static float formatFloat(int decimalLenth,float value){
 		BigDecimal b = new BigDecimal(value);
 		return b.setScale(decimalLenth, BigDecimal.ROUND_HALF_UP).floatValue();
+	}
+
+	public static boolean isNetworkAvailable(Context context) {
+		ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+		if (cm == null) {
+		} else {
+			// 如果仅仅是用来判断网络连接
+			// 则可以使用 cm.getActiveNetworkInfo().isAvailable();
+			NetworkInfo[] info = cm.getAllNetworkInfo();
+			if (info != null) {
+				for (int i = 0; i < info.length; i++) {
+					if (info[i].getState() == NetworkInfo.State.CONNECTED) {
+						return true;
+					}
+				}
+			}
+		}
+		return false;
 	}
 
 }

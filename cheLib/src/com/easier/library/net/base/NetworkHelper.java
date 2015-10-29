@@ -40,26 +40,12 @@ public abstract class NetworkHelper<T> {
 			 final boolean isMore,final Object tag) {
 		NetworkStringRequest networkRequest;
 		if (params == null) {
-//			networkRequest = new NetworkRequest(url, new Listener<JSONObject>() {
-//
-//				@Override
-//				public void onResponse(JSONObject response) {
-//					disposeResponse(response, requestCode, isMore,tag);
-//					LogUtil.d("Amuro", response.toString());
-//				}
-//			}, new ErrorListener() {
-//
-//				@Override
-//				public void onErrorResponse(VolleyError error) {
-//					disposeVolleyError(error, requestCode, isMore,tag);
-//				}
-//			});
 			networkRequest=new NetworkStringRequest(url, params, new Listener<String>() {
 
 				@Override
 				public void onResponse(String response) {
 					disposeResponse(response, requestCode, isMore,tag);
-//					LogUtil.d("Amuro", response.toString());
+					LogUtil.d("Amuro", response.toString());
 					
 				}
 			}, new ErrorListener() {

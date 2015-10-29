@@ -16,6 +16,7 @@ import com.android.volley.ParseError;
 import com.android.volley.Response;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
+import com.android.volley.RetryPolicy;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.StringRequest;
@@ -98,13 +99,20 @@ public class NetworkStringRequest extends StringRequest{
     	return this.mParams;
     }
 
+//    @Override
+//    public Priority getPriority(){
+//    	 RetryPolicy retryPolicy = new DefaultRetryPolicy(5000,DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT); 
+//         return retryPolicy; 
+//    }
+//
+//    public void setPriority(Priority priority){
+//        mPriority = priority;
+//    }
+    
     @Override
-    public Priority getPriority(){
-        return mPriority;
-    }
-
-    public void setPriority(Priority priority){
-        mPriority = priority;
+    public RetryPolicy getRetryPolicy() {
+    	RetryPolicy retryPolicy = new DefaultRetryPolicy(30000,DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT); 
+      return retryPolicy; 
     }
 
     private static String urlBuilder(String url, List<NameValuePair> params){
