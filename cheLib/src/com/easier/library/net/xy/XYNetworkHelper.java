@@ -1,6 +1,5 @@
 package com.easier.library.net.xy;
 
-import com.android.volley.NetworkError;
 import com.android.volley.NoConnectionError;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
@@ -9,7 +8,6 @@ import com.easier.library.net.base.NetworkHelper;
 import com.easier.library.net.base.ResponseError;
 import com.easier.library.net.base.SystemParams;
 import com.easier.library.util.JsonUtils;
-import com.easier.library.util.PublicMethod;
 
 import android.content.Context;
 

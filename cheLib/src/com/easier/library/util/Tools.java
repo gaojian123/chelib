@@ -51,7 +51,7 @@ import android.widget.TextView;
  *	公用方法类库
  *
  */
-public class PublicMethod {
+public class Tools {
 
 	private static int CMNET = 3;
 	private static int CMWAP = 2;
@@ -359,146 +359,7 @@ public class PublicMethod {
 
 	}
 
-	/**
-	 * 根据毫秒, 返回 分钟:秒 的格式  
-	 * @param ms
-	 * @return
-	 */
-	public static String changeTimeFormat(int ms) {  
-		// 转换成秒数  
-		int s = ms / 1000;  
-		// 分钟  
-		int min = s / 60;  
-		// 取得剩余的秒数  
-		s = s % 60;  
-
-		StringBuilder builder = new StringBuilder();  
-		if (min < 10) {  
-			builder.append("0");  
-		}  
-		builder.append(min);  
-		builder.append(":");  
-		if (s < 10) {  
-			builder.append("0");  
-		}  
-		builder.append(s);  
-
-		return builder.toString();  
-	} 
-
-	public static long getTodayBaseTime()
-	{
-		long time = System.currentTimeMillis();
-		Date date = new Date(time);
-		long a = time - date.getHours() * 60 * 1000 * 60 - date.getMinutes()* 60 * 1000 - date.getSeconds() * 1000;
-		return a;
-	}
-	private final static int minute=60*1000;
-	private final static int hour=60*minute;
-	private final static long day=24*hour;
-	public static String calculateTime(long time)
-	{
-		long TodayBaseTime=getTodayBaseTime();
-		String str="";
-		//		strs[0]=DateFormat.format("kk:mm", createTime).toString();
-		long during=TodayBaseTime-time;
-
-		if (System.currentTimeMillis()-time<=2*60*1000) {
-			//两分钟
-			str="刚刚";
-		}else if (System.currentTimeMillis()-time<=hour) {
-			//一小时
-			str=(System.currentTimeMillis()-time)/minute+"分钟前";
-		}else if (time-TodayBaseTime>=0) {
-			//今天
-			str="今天"+DateFormat.format("kk:mm", time).toString();
-		}else if (during>0&&during<=7*day) {
-			//七天内
-			str=(during/day+1)+"天前";
-		}else if (during>0&&during<=365*day) {
-			//今年内
-			str=DateFormat.format("MM-dd", time).toString();
-		}else {
-			str=DateFormat.format("yyyy-MM-dd", time).toString();
-		}
-		return str;
-	}
 	
-	
-	public static String formatTimeToString(long time, String type)
-	{
-		return DateFormat.format(type, time).toString();
-	}
-
-	public static long formatTimeToLong(String time, String type)
-	{
-		long day = 0;
-		SimpleDateFormat myFormatter = new SimpleDateFormat(type);
-		try
-		{
-			Date startDate = myFormatter.parse(time);
-			day = startDate.getTime();
-		} catch (ParseException e)
-		{
-			e.printStackTrace();
-		}
-		return day;
-	}
-
-	/**
-	 * 格式化倒计时
-	 * @param countDownTime
-	 * @return
-	 */
-	public static String formatCountDownTime(long countDownTime){
-		String result="";
-		long minute=60*1000;
-		long hour=60*minute;
-		long day=24*hour;
-		int dayCount=(int) (countDownTime/day);
-		int hourCount=(int) ((countDownTime%day)/hour);
-		int minuteCount=(int) ((countDownTime%hour)/minute);
-		int secondCount=(int) ((countDownTime%minute)/1000);
-		if (countDownTime>day) {
-			result=dayCount+"天"+hourCount+"小时"+minuteCount+"分";
-		}else if(hourCount>0){
-			result=hourCount+"小时"+minuteCount+"分"+secondCount+"秒";
-		}else if (minuteCount>0) {
-			result=minuteCount+"分"+secondCount+"秒";
-		}else {
-			result=secondCount+"秒";
-		}
-		return result;
-	}
-
-	public static String calcDaysFromToday(long timeValue) {
-		long nowtime = System.currentTimeMillis();
-		long offset = timeValue - nowtime;
-		long dayValue = 1000 * 60 * 60 * 24;
-		long hourValue = 1000 * 60 * 60;
-		long minuteValue = 1000 * 60;
-		int days = (int) (offset / dayValue);
-		int hours = (int) ((offset % dayValue) / hourValue);
-		int minutes = (int) (((offset % dayValue) % hourValue) / minuteValue);
-		StringBuilder str = new StringBuilder();
-		if (days > 0 || hours > 0 || minutes > 0) {
-			if (days > 0) {
-				str.append(days + "天");
-			}
-
-			if (hours > 0) {
-				str.append(hours + "小时");
-			}
-			if (minutes > 0) {
-				str.append(minutes + "分");
-			}
-		} else {
-			str.append("0天0小时0分");
-		}
-
-		return str.toString();
-	}
-
 
 	//	
 	//	/**
@@ -626,52 +487,7 @@ public class PublicMethod {
 
 	
 
-	/**
-	 * 初始化列表宠物背景图的布局
-	 * @param view
-	 * @param width
-	 */
-	public static void initPetalkViewLayout(View view, int width){
-        ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
-		layoutParams.height = width;
-		layoutParams.width = width;
-		view.setLayoutParams(layoutParams);
-	}
-
-    /**
-     * 初始化故事封面Layout布局
-     * @param storyTitle
-     * @param storyTime
-     * @param imgCover
-     * @param size
-     */
-    public static void initStoryCoverViewLayout(View storyTitle,View storyTime,View imgCover,int size){
-        if(storyTitle != null){
-            ViewGroup.MarginLayoutParams titleParam = (ViewGroup.MarginLayoutParams) storyTitle.getLayoutParams();
-            titleParam.leftMargin = (int) (40.0f/640.0f*size);
-            titleParam.topMargin =  (int) (116.0f/640.0f*size);
-            titleParam.width = size - titleParam.leftMargin;
-            storyTitle.setLayoutParams(titleParam);
-        }
-        if(storyTime != null){
-            ViewGroup.MarginLayoutParams timeParam = (ViewGroup.MarginLayoutParams) storyTime.getLayoutParams();
-            timeParam.leftMargin = (int) (40.0f/640.0f*size);
-            timeParam.topMargin = (int) (164.0f/640.0f*size);
-            storyTime.setLayoutParams(timeParam);
-        }
-
-        if(imgCover != null){
-            ViewGroup.MarginLayoutParams imgParam = (ViewGroup.MarginLayoutParams) imgCover.getLayoutParams();
-            imgParam.leftMargin = (int) (40.0f/640.0f*size);
-            imgParam.topMargin = (int) (224.0f/640.0f*size);
-            imgParam.width = (int) (560.0f/640.0f*size);
-            imgParam.height = (int) (320.0f/640.0f*size);
-            imgCover.setLayoutParams(imgParam);
-        }
-    }
-
-
-
+	
 	/**
 	 * 动态设置ListView的高度
 	 * @param listView
@@ -712,21 +528,7 @@ public class PublicMethod {
         return false;     
     }
     
-    /**
-     * 通过时间戳获取年月日
-     * @param time
-     * @return
-     */
-    public static int[] getYMD(long time){
-    	int[] dateArr=new int[3];
-    	Calendar calendar=Calendar.getInstance();
-    	Date date=new Date(time);
-    	calendar.setTime(date);
-    	dateArr[0]=calendar.get(Calendar.YEAR);
-    	dateArr[1]=calendar.get(Calendar.MONTH)+1;
-    	dateArr[2]=calendar.get(Calendar.DATE);
-    	return dateArr;
-    }
+   
 
     
 
