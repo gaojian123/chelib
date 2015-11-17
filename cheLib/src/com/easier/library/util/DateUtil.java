@@ -58,8 +58,9 @@ public class DateUtil {
 
 	public static long getTodayBaseTime() {
 		long time = System.currentTimeMillis();
-		Date date = new Date(time);
-		long a = time - date.getHours() * 60 * 1000 * 60 - date.getMinutes() * 60 * 1000 - date.getSeconds() * 1000;
+//		Date date = new Date(time);
+//		long a = time - date.getHours() * 60 * 1000 * 60 - date.getMinutes() * 60 * 1000 - date.getSeconds() * 1000;
+		long a=formatTimeToLong(formatTimeToString(time, DEFAULT_PATTERN), DEFAULT_PATTERN);
 		return a;
 	}
 
