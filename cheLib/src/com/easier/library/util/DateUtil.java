@@ -27,6 +27,10 @@ public class DateUtil {
 	// }
 
 	public static final String DEFAULT_PATTERN="yyyy-MM-dd";
+	public static final String PATTERN_ALL_24="yyyy-MM-dd kk:mm:ss";
+	public static final String PATTERN_ALL_12="yyyy-MM-dd hh:mm:ss";
+	public static final String PATTERN_TIME_24="kk:mm:ss";
+	public static final String PATTERN_TIME_12="hh:mm:ss";
 	
 	/**
 	 * 根据毫秒, 返回 分钟:秒 的格式

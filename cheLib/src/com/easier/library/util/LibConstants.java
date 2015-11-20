@@ -1,5 +1,6 @@
 package com.easier.library.util;
 
-public class Constants {
+public class LibConstants {
 	public static final boolean isLibDebug = true;
+	
 }
