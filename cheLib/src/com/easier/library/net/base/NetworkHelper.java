@@ -7,6 +7,7 @@ import org.apache.http.NameValuePair;
 import org.json.JSONObject;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request.Method;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
@@ -73,7 +74,7 @@ public abstract class NetworkHelper<T> {
 				}
 			});
 		}
-
+//networkRequest.setRetryPolicy(new DefaultRetryPolicy(30000, 1, 1.0f));
 		return networkRequest;
 	}
 
@@ -99,6 +100,7 @@ public abstract class NetworkHelper<T> {
 				return params;
 			}
 		};
+//		networkRequest.setRetryPolicy(new DefaultRetryPolicy(30000, 1, 1.0f));
 		return networkRequest;
 
 	}

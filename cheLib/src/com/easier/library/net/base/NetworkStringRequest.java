@@ -17,6 +17,7 @@ import com.android.volley.Response;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.RetryPolicy;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.StringRequest;
@@ -26,7 +27,7 @@ public class NetworkStringRequest extends StringRequest{
     public NetworkStringRequest(int method, String url, Listener<String> listener, ErrorListener errorListener) {
 		
     	super(method, url, listener, errorListener);
-		
+    	setRetryPolicy(new DefaultRetryPolicy(15000, 1, 1.0f));
 	}
 
 	private Priority mPriority = Priority.HIGH;
@@ -109,11 +110,36 @@ public class NetworkStringRequest extends StringRequest{
 //        mPriority = priority;
 //    }
     
-    @Override
-    public RetryPolicy getRetryPolicy() {
-    	RetryPolicy retryPolicy = new DefaultRetryPolicy(30000,DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT); 
-      return retryPolicy; 
-    }
+//    @Override
+//    public void setRetryPolicy(RetryPolicy retryPolicy) {
+//    	// TODO Auto-generated method stub
+//    	super.setRetryPolicy(retryPolicy);
+//    }
+//    
+//    @Override
+//    public RetryPolicy getRetryPolicy() {
+//    	RetryPolicy retryPolicy = new RetryPolicy() {
+//			
+//			@Override
+//			public void retry(VolleyError arg0) throws VolleyError {
+//				// TODO Auto-generated method stub
+//				
+//			}
+//			
+//			@Override
+//			public int getCurrentTimeout() {
+//				// TODO Auto-generated method stub
+//				return 3;
+//			}
+//			
+//			@Override
+//			public int getCurrentRetryCount() {
+//				// TODO Auto-generated method stub
+//				return 3;
+//			}
+//		};
+//      return retryPolicy; 
+//    }
 
     private static String urlBuilder(String url, List<NameValuePair> params){
         return url + "?" + URLEncodedUtils.format(params, "UTF-8");

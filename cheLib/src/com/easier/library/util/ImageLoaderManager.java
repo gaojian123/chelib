@@ -64,7 +64,7 @@ public class ImageLoaderManager {
 
 	}
 
-	public DisplayImageOptions getImageOptions(int loadingImgId,int failedImgID,ImageScaleType imageScaleType) {
+	public static DisplayImageOptions getImageOptions(int loadingImgId,int failedImgID,ImageScaleType imageScaleType) {
 		DisplayImageOptions imageOptions = new DisplayImageOptions.Builder()
 				.showImageForEmptyUri(failedImgID)
 				.showImageOnLoading(loadingImgId)
@@ -76,7 +76,7 @@ public class ImageLoaderManager {
 		return imageOptions;
 	}
 	
-	public DisplayImageOptions getImageOptions(int loadingImgId,int failedImgID) {
+	public static DisplayImageOptions getImageOptions(int loadingImgId,int failedImgID) {
 		DisplayImageOptions imageOptions = new DisplayImageOptions.Builder()
 				.showImageForEmptyUri(failedImgID)
 				.showImageOnLoading(loadingImgId)
