@@ -55,6 +55,9 @@ public class ZZNetworkHelper extends NetworkHelper<ZZResponseBean>{
                 	
                     notifyDataChanged(bean,requestCode);
                 }else{
+                	if (null!=bean&&null!=bean.getResMsg()) {
+                		error.setErrorMsg(bean.getResMsg());
+					}
                 	error.setBean(bean);
                     notifyErrorHappened(error,requestCode);
                 }

@@ -51,6 +51,9 @@ public class XYNetworkHelper extends NetworkHelper<XYResponseBean>{
                 if("200".equals(bean.getCode())){
                     notifyDataChanged(bean,requestCode);
                 }else{
+                	if (null!=bean&&null!=bean.getMsg()) {
+                		error.setErrorMsg(bean.getMsg());
+					}
                 	error.setBean(bean);
                     notifyErrorHappened(error,requestCode);
                 }
